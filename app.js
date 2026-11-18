@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   kidsButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const nameInput = document.querySelector("#name-input, .name-input");
-      const name = nameInput ? nameInput.value : "";
-      window.location.href = `kids.html?name=${encodeURIComponent(name)}`;
+      let UserName = nameInput ? nameInput.value : "";
+      window.location.href = `kids.html?name=${encodeURIComponent(UserName)}`;
     });
   });
 
@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   momButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const nameInput = document.querySelector("#name-input, .name-input");
-      const name = nameInput ? nameInput.value : "";
-      window.location.href = `mom.html?name=${encodeURIComponent(name)}`;
+      let UserName = nameInput ? nameInput.value : "";
+      window.location.href = `mom.html?name=${encodeURIComponent(UserName)}`;
     });
   });
 });
