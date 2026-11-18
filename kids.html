@@ -1,0 +1,23 @@
+<!-- kids.html -->
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>作ってもらう側</title>
+</head>
+<body>
+	<main>
+		<h1>作ってもらう側のページです</h1>
+		<p id="greeting"></p>
+	</main>
+
+	<script>
+		const UserName = sessionStorage.getItem("UserName");
+
+		if (UserName) {
+			document.getElementById("greeting").textContent = `こんにちは、${UserName}さん。`;
+		}
+	</script>
+</body>
+</html>
