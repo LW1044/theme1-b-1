@@ -1,23 +1,81 @@
-<!-- mom.html -->
 <!doctype html>
 <html lang="ja">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>作る側</title>
+	<title>家族の食事予定 | Mealink</title>
+	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="mom">
 	<main>
-		<h1>作る側のページです</h1>
-		<p id="greeting"></p>
+		<a href="index.html">役割選択に戻る</a>
+		<h1>家族の食事予定</h1>
+		<p id="greeting" hidden></p>
+		<p>日ごとの献立を入力し、食事が不要な人と備考を確認できます。</p>
+
+		<table>
+			<caption id="week-range">今週の予定</caption>
+			<thead>
+				<tr>
+					<th scope="col">日付</th>
+					<th scope="col">献立</th>
+					<th scope="col">食事不要の人数</th>
+					<th scope="col">名前・予定・備考</th>
+				</tr>
+			</thead>
+			<tbody id="week-list" data-field="weeklyMealPlans">
+				<tr id="day-mon">
+					<th scope="row">月曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-mon" data-field="mealMenu" aria-label="月曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-tue">
+					<th scope="row">火曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-tue" data-field="mealMenu" aria-label="火曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-wed">
+					<th scope="row">水曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-wed" data-field="mealMenu" aria-label="水曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-thu">
+					<th scope="row">木曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-thu" data-field="mealMenu" aria-label="木曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-fri">
+					<th scope="row">金曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-fri" data-field="mealMenu" aria-label="金曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-sat">
+					<th scope="row">土曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-sat" data-field="mealMenu" aria-label="土曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+				<tr id="day-sun">
+					<th scope="row">日曜日 <span data-field="mealDate"></span></th>
+					<td><input type="text" name="menu-sun" data-field="mealMenu" aria-label="日曜日の献立"></td>
+					<td data-field="noMealCount">未集計</td>
+					<td><ul class="member-list"></ul></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<template id="member-plan">
+			<li>
+				<strong data-field="UserName"></strong>
+				<span data-field="needsMeal"></span>
+				<span data-field="mealNote"></span>
+			</li>
+		</template>
 	</main>
-
-	<script>
-		const UserName = sessionStorage.getItem("UserName");
-
-		if (UserName) {
-			document.getElementById("greeting").textContent = `こんにちは、${UserName}さん。`;
-		}
-	</script>
 </body>
 </html>
