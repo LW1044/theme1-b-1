@@ -1,23 +1,69 @@
-<!-- kids.html -->
 <!doctype html>
 <html lang="ja">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>作ってもらう側</title>
+	<title>食事予定の入力 | Mealink</title>
+	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="kids">
 	<main>
-		<h1>作ってもらう側のページです</h1>
-		<p id="greeting"></p>
+		<a href="index.html">役割選択に戻る</a>
+		<h1 id="plan-owner">1週間の食事予定</h1>
+		<p id="greeting">入力者：<span data-field="UserName">—</span></p>
+		<p>日ごとに「家で食べる」か「食事不要」を選んでください。</p>
+
+		<div id="week-list" data-field="weeklyMealPlans">
+			<fieldset id="day-mon">
+				<legend>月曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-mon" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-mon" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-mon" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-tue">
+				<legend>火曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-tue" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-tue" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-tue" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-wed">
+				<legend>水曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-wed" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-wed" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-wed" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-thu">
+				<legend>木曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-thu" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-thu" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-thu" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-fri">
+				<legend>金曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-fri" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-fri" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-fri" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-sat">
+				<legend>土曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-sat" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-sat" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-sat" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+			<fieldset id="day-sun">
+				<legend>日曜日 <span data-field="mealDate"></span></legend>
+				<p>献立：<span data-field="mealMenu">未定</span></p>
+				<label><input type="radio" name="meal-sun" data-field="needsMeal" value="true"> 家で食べる</label>
+				<label><input type="radio" name="meal-sun" data-field="needsMeal" value="false"> 食事不要</label>
+				<label>備考 <input type="text" name="note-sun" data-field="mealNote" maxlength="120"></label>
+			</fieldset>
+		</div>
 	</main>
-
-	<script>
-		const UserName = sessionStorage.getItem("UserName");
-
-		if (UserName) {
-			document.getElementById("greeting").textContent = `こんにちは、${UserName}さん。`;
-		}
-	</script>
 </body>
 </html>
