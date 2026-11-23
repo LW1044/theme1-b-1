@@ -1,56 +1,100 @@
-/* ベース設定 */
-* {
-  box-sizing: border-box;
-}
+/* ==========================================================================
+   Mealink Design System / Stylesheet
+   ========================================================================== */
 
 :root {
-  --bg-page: #f6f7f9;
-  --bg-card: #ffffff;
-  --bg-subtle: #f3f4f6;
-  --text-main: #1f2937;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --accent-kids: #f59e0b;
-  --accent-mom: #10b981;
-  --accent-focus: #3b82f6;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --bg-grad-start: #f8fafc;
+  --bg-grad-end: #eef2f6;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --surface-muted: #f1f5f9;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  --kids-main: #f59e0b;
+  --kids-hover: #d97706;
+  --kids-tint: #fffbeb;
+  --kids-tint-strong: #fef3c7;
+  --kids-border: #fcd34d;
+
+  --mom-main: #10b981;
+  --mom-hover: #059669;
+  --mom-tint: #ecfdf5;
+  --mom-tint-strong: #d1fae5;
+  --mom-border: #6ee7b7;
+
+  --focus-color: #2563eb;
+  --focus-ring: rgba(37, 99, 235, 0.16);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 10px 28px -6px rgba(15, 23, 42, 0.07), 0 4px 10px -4px rgba(15, 23, 42, 0.04);
+  --shadow-tile: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+  --shadow-btn: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  padding: 24px 16px 48px;
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
-  background-color: var(--bg-page);
-  color: var(--text-main);
-  line-height: 1.6;
+  min-height: 100vh;
+  padding: 28px 18px 64px;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: linear-gradient(160deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
+  -webkit-font-smoothing: antialiased;
 }
 
 main {
-  max-width: 960px;
+  width: 100%;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
-h1, h2, h3, p, ul {
+h1,
+p,
+ul {
   margin-top: 0;
 }
 
-/* 選択画面（index.html） */
+/* ==========================================================================
+   1. 役割選択画面（index_2.html）
+   ========================================================================== */
+
 #select-page {
-  max-width: 460px;
-  margin: 32px auto;
-  padding: 32px 24px;
-  background-color: var(--bg-card);
+  max-width: 440px;
+  margin: 48px auto;
+  padding: 36px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 
 #select-page h1 {
   margin-bottom: 24px;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  background: linear-gradient(90deg, var(--kids-hover), var(--mom-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 #select-page p {
@@ -58,163 +102,383 @@ h1, h2, h3, p, ul {
   text-align: left;
 }
 
-label[for="name-input"],
-.name-label {
+label[for="name-input"] {
   display: block;
   margin-bottom: 8px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
+  color: var(--text-secondary);
 }
 
-#name-input,
-.name-input,
-input[type="text"],
-[data-field="mealMenu"],
-[data-field="mealNote"] {
+#name-input {
   width: 100%;
-  padding: 10px 12px;
-  font-size: 0.95rem;
+  padding: 12px 14px;
   font-family: inherit;
-  color: var(--text-main);
-  background-color: #ffffff;
-  border: 1.5px solid #d1d5db;
-  border-radius: 10px;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
-#name-input:focus,
-.name-input:focus,
-input[type="text"]:focus,
-[data-field="mealMenu"]:focus,
-[data-field="mealNote"]:focus {
+#name-input::placeholder {
+  color: #94a3b8;
+}
+
+#name-input:focus {
   outline: none;
-  border-color: var(--accent-focus);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  background: var(--surface);
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
-/* ボタン（#kids-button / #mom-button または .kids-button / .mom-button） */
 #kids-button,
-.kids-button,
-#mom-button,
-.mom-button {
+#mom-button {
   display: block;
   width: 100%;
-  padding: 13px 16px;
+  padding: 14px 18px;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 700;
-  font-family: inherit;
+  letter-spacing: 0.02em;
   color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-btn);
   cursor: pointer;
-  transition: transform 0.08s ease, opacity 0.15s ease;
+  transition: transform 0.14s ease, box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
-#kids-button,
-.kids-button {
-  background-color: var(--accent-kids);
+#kids-button {
+  background-color: var(--kids-main);
   margin-bottom: 12px;
 }
 
-#mom-button,
-.mom-button {
-  background-color: var(--accent-mom);
+#kids-button:hover {
+  background-color: var(--kids-hover);
+  transform: translateY(-1px);
 }
 
-#kids-button:hover,
-.kids-button:hover,
-#mom-button:hover,
-.mom-button:hover {
-  opacity: 0.92;
+#mom-button {
+  background-color: var(--mom-main);
+}
+
+#mom-button:hover {
+  background-color: var(--mom-hover);
+  transform: translateY(-1px);
 }
 
 #kids-button:active,
-.kids-button:active,
-#mom-button:active,
-.mom-button:active {
-  transform: scale(0.99);
+#mom-button:active {
+  transform: translateY(0) scale(0.99);
 }
 
-/* ログイン者表示（kids.html など） */
-[data-field="UserName"] {
-  font-weight: 700;
-}
+/* ==========================================================================
+   2. ページ共通ヘッダー・導線（kids_2.html / mom_2.html）
+   ========================================================================== */
 
-/* 1週間（月〜日）のカードグリッド */
-.week-grid,
-.days-container,
-[id^="day-"] {
-  /* 個別カード（#day-mon 〜 #day-sun）の共通スタイル */
-}
-
-[id^="day-"] {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* 親要素に .week-grid や .days-grid を付けた場合に7列/レスポンシブ配置 */
-.week-grid,
-.days-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  align-items: start;
-}
-
-/* 曜日・日付ヘッダー */
-[data-field="mealDate"] {
-  display: inline-block;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  background-color: var(--bg-subtle);
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-
-/* 献立表示（kids） / 献立入力（mom） */
-[data-field="mealMenu"] {
-  min-height: 38px;
-}
-
-body[data-page="kids"] [data-field="mealMenu"] {
-  display: block;
-  padding: 8px 12px;
-  background-color: #fffbeb;
-  border: 1px solid #fde68a;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-/* ラジオボタン（食べる / 食事不要） */
-.needs-meal-group,
-label:has([data-field="needsMeal"]) {
+body[data-page="kids"] main > a,
+body[data-page="mom"] main > a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-right: 12px;
-  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+body[data-page="kids"] main > a::before,
+body[data-page="mom"] main > a::before {
+  content: "←";
+  font-weight: 700;
+}
+
+body[data-page="kids"] main > a:hover,
+body[data-page="mom"] main > a:hover {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--surface-alt);
+}
+
+body[data-page="kids"] h1,
+body[data-page="mom"] h1 {
+  margin-bottom: 10px;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+#greeting {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 12px;
   font-size: 0.92rem;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
 }
 
-[data-field="needsMeal"] {
-  accent-color: var(--accent-kids);
+body[data-page="kids"] #greeting {
+  background: var(--kids-tint);
+  border-color: var(--kids-border);
+}
+
+body[data-page="mom"] #greeting {
+  background: var(--mom-tint);
+  border-color: var(--mom-border);
+}
+
+#greeting [data-field="UserName"] {
+  font-weight: 800;
+}
+
+body[data-page="kids"] main > p:last-of-type,
+body[data-page="mom"] main > p:last-of-type {
+  margin-bottom: 22px;
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   3. 食事予定の入力画面（kids_2.html）
+   ========================================================================== */
+
+body[data-page="kids"] #week-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  gap: 18px;
+}
+
+body[data-page="kids"] fieldset[id^="day-"] {
+  margin: 0;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-tile);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  transition: transform 0.16s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+body[data-page="kids"] fieldset[id^="day-"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--kids-border);
+}
+
+body[data-page="kids"] fieldset[id^="day-"] legend {
+  padding: 4px 12px;
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  background: var(--kids-tint-strong);
+  border: 1px solid var(--kids-border);
+  border-radius: var(--radius-pill);
+}
+
+body[data-page="kids"] [data-field="mealDate"] {
+  margin-left: 4px;
+  font-weight: 700;
+  color: var(--kids-hover);
+}
+
+body[data-page="kids"] fieldset[id^="day-"] > p {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background: var(--surface-alt);
+  border-left: 3px solid var(--kids-main);
+  border-radius: var(--radius-sm);
+}
+
+body[data-page="kids"] [data-field="mealMenu"] {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+body[data-page="kids"] fieldset[id^="day-"] > label:has([type="radio"]) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  font-size: 0.93rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body[data-page="kids"] fieldset[id^="day-"] > label:has([type="radio"]):hover {
+  background: var(--kids-tint);
+  border-color: var(--kids-border);
+}
+
+body[data-page="kids"] fieldset[id^="day-"] > label:has([type="radio"]:checked) {
+  background: var(--kids-tint);
+  border-color: var(--kids-main);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+}
+
+body[data-page="kids"] [data-field="needsMeal"] {
+  accent-color: var(--kids-hover);
   cursor: pointer;
 }
 
-/* 備考欄 */
-[data-field="mealNote"] {
-  font-size: 0.9rem;
+body[data-page="kids"] fieldset[id^="day-"] > label:has([data-field="mealNote"]) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 2px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-secondary);
 }
 
-/* mom側の家族回答リストと不要人数 */
-.member-list {
+body[data-page="kids"] [data-field="mealNote"] {
+  width: 100%;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--surface-alt);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+body[data-page="kids"] [data-field="mealNote"]:focus {
+  outline: none;
+  background: var(--surface);
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* ==========================================================================
+   4. 家族の食事予定一覧（mom_2.html）
+   ========================================================================== */
+
+body[data-page="mom"] table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+body[data-page="mom"] caption#week-range {
+  caption-side: top;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+body[data-page="mom"] thead th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  background: var(--mom-tint-strong);
+  border-bottom: 1px solid var(--mom-border);
+}
+
+body[data-page="mom"] tbody tr[id^="day-"] {
+  transition: background-color 0.15s ease;
+}
+
+body[data-page="mom"] tbody tr[id^="day-"]:hover {
+  background: var(--surface-alt);
+}
+
+body[data-page="mom"] tbody tr[id^="day-"] th,
+body[data-page="mom"] tbody tr[id^="day-"] td {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+body[data-page="mom"] tbody tr[id^="day-"]:last-child th,
+body[data-page="mom"] tbody tr[id^="day-"]:last-child td {
+  border-bottom: none;
+}
+
+body[data-page="mom"] tbody th[scope="row"] {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.94rem;
+  font-weight: 700;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+body[data-page="mom"] [data-field="mealDate"] {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 9px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--mom-hover);
+  background: var(--mom-tint);
+  border: 1px solid var(--mom-border);
+  border-radius: var(--radius-pill);
+}
+
+body[data-page="mom"] tbody td {
+  padding: 14px 16px;
+  vertical-align: top;
+}
+
+body[data-page="mom"] [data-field="mealMenu"] {
+  width: 100%;
+  min-width: 170px;
+  padding: 9px 12px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+body[data-page="mom"] [data-field="mealMenu"]:focus {
+  outline: none;
+  border-color: var(--mom-main);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+}
+
+body[data-page="mom"] [data-field="noMealCount"] {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  background: var(--surface-muted);
+  border-radius: var(--radius-pill);
+}
+
+body[data-page="mom"] .member-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -223,31 +487,61 @@ label:has([data-field="needsMeal"]) {
   gap: 6px;
 }
 
-.member-list li {
-  padding: 8px 10px;
-  background-color: var(--bg-subtle);
-  border-radius: 8px;
+body[data-page="mom"] .member-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 7px 11px;
   font-size: 0.88rem;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
 }
 
-.no-meal-summary {
-  font-size: 0.88rem;
+body[data-page="mom"] .member-list [data-field="UserName"] {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+body[data-page="mom"] .member-list [data-field="needsMeal"] {
+  padding: 1px 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--surface);
+  border-radius: var(--radius-pill);
+}
+
+body[data-page="mom"] .member-list [data-field="mealNote"] {
   color: var(--text-muted);
 }
 
-[data-field="noMealCount"] {
-  font-weight: 700;
-  color: #dc2626;
-}
+/* ==========================================================================
+   5. レスポンシブ対応
+   ========================================================================== */
 
-/* スマホ向け微調整 */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   body {
-    padding: 16px 12px 36px;
+    padding: 20px 12px 48px;
   }
 
   #select-page {
-    margin: 16px auto;
-    padding: 24px 18px;
+    margin: 24px auto;
+    padding: 28px 20px;
+  }
+
+  #select-page h1 {
+    font-size: 1.7rem;
+  }
+
+  body[data-page="kids"] h1,
+  body[data-page="mom"] h1 {
+    font-size: 1.45rem;
+  }
+
+  body[data-page="mom"] table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
