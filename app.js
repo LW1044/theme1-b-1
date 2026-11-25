@@ -1,5 +1,44 @@
 // HTMLの読み込み完了後に、各ボタンのクリック処理を登録する。
 document.addEventListener("DOMContentLoaded", () => {
+  // 前に使った名前の一覧を取得する。
+  const savedNames = JSON.parse(
+    localStorage.getItem("savedNames") || "[]"
+  );
+
+  // 名前入力欄を取得する。
+  const nameInput = document.querySelector("#name-input");
+
+  // 前に使った名前を選択する欄を取得する。
+  const savedNameSelect = document.querySelector("#saveName");
+
+  // 保存済みの名前が存在するか判定する。
+  const hasSavedNames = savedNames.length > 0;
+
+  // 名前履歴表示エリアを取得する。
+  const nameHistory = document.querySelector(".name-history");
+
+  // 保存済み名前がある場合だけ選択欄を表示する。
+  if (nameHistory && hasSavedNames) {
+    nameHistory.hidden = false;
+  }
+
+  // 保存済み名前を選択欄に追加する。
+  if (savedNameSelect) {
+    savedNames.forEach((savedName) => {
+      const option = document.createElement("option");
+      option.value = savedName;
+      option.textContent = savedName;
+      savedNameSelect.appendChild(option);
+    });
+
+    // 選択した名前を入力欄へ反映する。
+    savedNameSelect.addEventListener("change", () => {
+      if (nameInput) {
+        nameInput.value = savedNameSelect.value;
+      }
+    });
+  }
+
   // kids.htmlでは、index.htmlで保存した入力者名を表示する。
   const greetingName = document.querySelector('[data-field="UserName"]');
   if (greetingName) {
@@ -14,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   monday.setDate(today.getDate() - offsetFromMonday);
 
   const dayIds = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
   const weeklyMealPlans = dayIds.map((dayId, index) => {
     const date = new Date(monday);
     date.setDate(monday.getDate() + index);
@@ -21,7 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const mealDate = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+    const mealDate =
+      `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 
     return {
       dayId,
@@ -31,9 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  // kids.htmlとmom.htmlの同じ曜日に、予定の日付を表示する。
+  // kids.htmlとmom.htmlの同じ曜日に予定日を表示する。
   weeklyMealPlans.forEach((plan) => {
     const dayElement = document.querySelector(`#day-${plan.dayId}`);
+
     const mealDateElement = dayElement
       ? dayElement.querySelector('[data-field="mealDate"]')
       : null;
@@ -44,15 +87,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 名前と日付ごとの食事予定をブラウザに保存し、開き直したときに復元する。
+  // 保存済みデータを取得する。
   const UserName = sessionStorage.getItem("UserName") || "";
+
   const savedMealPlans = JSON.parse(
     localStorage.getItem("mealPlansByUserAndDate") || "[]"
   );
+
   const savedMealMenus = JSON.parse(
     localStorage.getItem("mealMenusByDate") || "[]"
   );
 
+  // 献立情報の表示・保存処理
   weeklyMealPlans.forEach((plan) => {
     const dayElement = document.querySelector(`#day-${plan.dayId}`);
     if (!dayElement) return;
@@ -60,12 +106,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedMenu = savedMealMenus.find(
       (item) => item.mealDate === plan.mealDate
     );
+
     plan.mealMenu = savedMenu ? savedMenu.mealMenu : "";
 
-    const mealMenuElement = dayElement.querySelector('[data-field="mealMenu"]');
+    const mealMenuElement = dayElement.querySelector(
+      '[data-field="mealMenu"]'
+    );
+
     if (!mealMenuElement) return;
 
-    // mom画面では献立入力時に即保存する。
+    // mom画面では献立を即保存する。
     if (
       document.body.dataset.page === "mom" &&
       mealMenuElement.tagName === "INPUT"
@@ -109,7 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!dayElement) return;
 
       const memberList = dayElement.querySelector(".member-list");
-      if (memberList) memberList.replaceChildren();
+
+      if (memberList) {
+        memberList.replaceChildren();
+      }
 
       const plansForDate = savedMealPlans.filter(
         (item) => item.mealDate === plan.mealDate
@@ -121,8 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (memberPlanTemplate) {
           memberPlan = memberPlanTemplate.content.cloneNode(true);
 
-          memberPlan.querySelector('[data-field="UserName"]').textContent =
-            savedPlan.UserName || "名前なし";
+          memberPlan.querySelector(
+            '[data-field="UserName"]'
+          ).textContent = savedPlan.UserName || "名前なし";
 
           const needsMeal = memberPlan.querySelector(
             '[data-field="needsMeal"]'
@@ -170,8 +224,9 @@ document.addEventListener("DOMContentLoaded", () => {
         (item) => item.needsMeal === false
       ).length;
 
-      const noMealCountElement =
-        dayElement.querySelector('[data-field="noMealCount"]');
+      const noMealCountElement = dayElement.querySelector(
+        '[data-field="noMealCount"]'
+      );
 
       if (noMealCountElement) {
         noMealCountElement.textContent = String(noMealCount);
@@ -181,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // kids.html用の処理
   if (document.body.dataset.page === "kids") {
-    // 保存済みデータを画面へ復元する。
+    // 保存済みデータを復元する。
     weeklyMealPlans.forEach((plan) => {
       const dayElement = document.querySelector(`#day-${plan.dayId}`);
       if (!dayElement) return;
@@ -213,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // 完了ボタン押下時に全曜日分を保存する。
+    // 完了ボタン押下時に保存する。
     const addButton = document.getElementById("add-button");
 
     if (addButton) {
@@ -258,13 +313,11 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // 全データをまとめて保存する。
         localStorage.setItem(
           "mealPlansByUserAndDate",
           JSON.stringify(savedMealPlans)
         );
 
-        // 保存完了ダイアログを表示する。
         const registrationDialog =
           document.getElementById("registration-dialog");
 
@@ -295,21 +348,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 「作ってもらう」ボタンをIDまたはクラス名から取得する。
+  // 名前を保存する共通処理
+  const saveUserName = (UserName) => {
+    if (!UserName) return;
+
+    if (!savedNames.includes(UserName)) {
+      savedNames.push(UserName);
+
+      localStorage.setItem(
+        "savedNames",
+        JSON.stringify(savedNames)
+      );
+    }
+  };
+
+  // 「作ってもらう」ボタン
   const kidsButtons = document.querySelectorAll(
     "#kids-button, .kids-button"
   );
 
-  // 子ども側ボタンそれぞれに、名前の保存と画面移動の処理を登録する。
   kidsButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const nameInput = document.querySelector(
-        "#name-input, .name-input"
-      );
-
       const UserName = nameInput
         ? nameInput.value.trim()
         : "";
+
+      // 名前を保存する。
+      saveUserName(UserName);
 
       sessionStorage.setItem("UserName", UserName);
       sessionStorage.setItem("UserRole", "kids");
@@ -318,21 +383,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 「作る」ボタンをIDまたはクラス名から取得する。
+  // 「作る」ボタン
   const momButtons = document.querySelectorAll(
     "#mom-button, .mom-button"
   );
 
-  // 母側ボタンそれぞれに、名前の保存と画面移動の処理を登録する。
   momButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const nameInput = document.querySelector(
-        "#name-input, .name-input"
-      );
-
       const UserName = nameInput
         ? nameInput.value.trim()
         : "";
+
+      // 名前を保存する。
+      saveUserName(UserName);
 
       sessionStorage.setItem("UserName", UserName);
       sessionStorage.setItem("UserRole", "mom");
