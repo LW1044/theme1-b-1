@@ -657,3 +657,45 @@ body[data-page="mom"] .member-list [data-field="mealNote"] {
     max-width: 560px;
   }
 }
+
+/* ==========================================================================
+   当日（.is-today / [data-today="true"]）の確実な色変更
+   ========================================================================== */
+
+body[data-page="kids"] #week-list fieldset[id^="day-"].is-today,
+body[data-page="kids"] #week-list fieldset[id^="day-"][data-today="true"] {
+  background-color: #fff6f5;
+  border-color: #f4a29e;
+}
+
+body[data-page="kids"] #week-list fieldset[id^="day-"].is-today > legend,
+body[data-page="kids"] #week-list fieldset[id^="day-"][data-today="true"] > legend {
+  background-color: #fde8e6;
+  border-color: #f4a29e;
+  color: #883939;
+}
+
+body[data-page="kids"] #week-list fieldset[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="kids"] #week-list fieldset[id^="day-"][data-today="true"] [data-field="mealDate"] {
+  color: #c95b55;
+  font-weight: 800;
+}
+
+body[data-page="mom"] #week-list tr[id^="day-"].is-today,
+body[data-page="mom"] #week-list tr[id^="day-"][data-today="true"] {
+  background-color: #fff6f5;
+  border-color: #f4a29e;
+}
+
+body[data-page="mom"] #week-list tr[id^="day-"].is-today > th[scope="row"],
+body[data-page="mom"] #week-list tr[id^="day-"][data-today="true"] > th[scope="row"] {
+  color: #883939;
+  border-bottom-color: #f4a29e;
+}
+
+body[data-page="mom"] #week-list tr[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="mom"] #week-list tr[id^="day-"][data-today="true"] [data-field="mealDate"] {
+  background-color: #fde8e6;
+  border-color: #f4a29e;
+  color: #883939;
+}
