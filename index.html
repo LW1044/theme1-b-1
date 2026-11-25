@@ -11,8 +11,18 @@
 		<section id="select-page">
 			<h1>Mealink</h1>
 			<p>
-				<label for="name-input">名前（ニックネーム）</label>
-				<input id="name-input" type="text" placeholder="例：はる" required>
+				<div class="name-field">
+					<label for="name-input">名前（ニックネーム）</label>
+					<div class="name-field-control">
+						<input id="name-input" type="text" placeholder="例：はる" required>
+						<span class="name-history" hidden>
+							<span aria-hidden="true">▼</span>
+							<select id="saveName" aria-label="前に使った名前を選ぶ">
+								<option value="">前に使った名前を選ぶ</option>
+							</select>
+						</span>
+					</div>
+				</div>
 			</p>
 			<button id="kids-button" type="button">作ってもらう</button>
 			<button id="mom-button" type="button">作る</button>
