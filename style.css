@@ -67,7 +67,7 @@ ul {
 }
 
 /* ==========================================================================
-   1. 役割選択画面（index）
+1. 役割選択画面（index）
    ========================================================================== */
 
 #select-page {
@@ -152,7 +152,7 @@ label[for="name-input"] {
 }
 
 /* ==========================================================================
-   2. ページ共通ヘッダー・導線
+2. ページ共通ヘッダー・導線
    ========================================================================== */
 
 body[data-page="kids"] main > a,
@@ -213,7 +213,7 @@ body[data-page="mom"] main > p:last-of-type {
 }
 
 /* ==========================================================================
-   3. 食事予定の入力画面（kids）
+3. 食事予定の入力画面（kids）
    ========================================================================== */
 
 body[data-page="kids"] #week-list {
@@ -397,7 +397,7 @@ body[data-page="kids"] [data-field="mealNote"]:focus {
 }
 
 /* ==========================================================================
-   4. 家族の食事予定一覧（mom）
+4. 家族の食事予定一覧（mom）
    ========================================================================== */
 
 body[data-page="mom"] table {
@@ -573,7 +573,7 @@ body[data-page="mom"] .member-list [data-field="mealNote"] {
 }
 
 /* ==========================================================================
-   5. PC・タブレット向け幅調整
+5. PC・タブレット向け幅調整
    ========================================================================== */
 
 @media (min-width: 768px) {
@@ -584,4 +584,61 @@ body[data-page="mom"] .member-list [data-field="mealNote"] {
   main {
     max-width: 560px;
   }
+}
+
+/* ==========================================================================
+6. 当日（.is-today / [data-today="true"]）の見やすさ強調追加
+   ========================================================================== */
+
+:root {
+  --today-highlight-bg: #fff1f2;
+  --today-highlight-border: #fb7185;
+  --today-highlight-text: #9f1239;
+  --today-pill-bg: #ffe4e6;
+}
+
+/* 当日のカード・行全体の枠線と背景をさらに明確に強調 */
+body[data-page="kids"] fieldset[id^="day-"].is-today,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"],
+body[data-page="mom"] tbody tr[id^="day-"].is-today,
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] {
+  background-color: var(--today-highlight-bg);
+  border-color: var(--today-highlight-border);
+  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.12);
+}
+
+/* 当日の見出し・日付の色とバッジ強調 */
+body[data-page="kids"] fieldset[id^="day-"].is-today legend,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] legend {
+  background-color: var(--today-pill-bg);
+  border-color: var(--today-highlight-border);
+  color: var(--today-highlight-text);
+}
+
+body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] th[scope="row"] {
+  color: var(--today-highlight-text);
+}
+
+body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealDate"],
+body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealDate"] {
+  color: var(--today-accent);
+  font-weight: 800;
+}
+
+/* 当日の入力欄・回答アイテムのコントラスト向上 */
+body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealNote"],
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealNote"],
+body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealMenu"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealMenu"] {
+  background-color: var(--surface);
+  border-color: var(--today-highlight-border);
+}
+
+body[data-page="mom"] tbody tr[id^="day-"].is-today .member-list li,
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] .member-list li {
+  background-color: var(--surface);
+  border-color: var(--today-border);
 }
