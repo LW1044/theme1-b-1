@@ -1,14 +1,14 @@
 /* ==========================================================================
-   Mealink Stylesheet (Mobile-First / Standard CSS)
+   Mealink Stylesheet (Mobile-First / Soft Today Highlight)
    ========================================================================== */
 
 :root {
-  --bg-page: #f4f6f9;
+  --bg-page: #f5f7f9;
   --surface: #ffffff;
   --surface-alt: #f8fafc;
   --surface-muted: #f1f5f9;
 
-  --text-primary: #0f172a;
+  --text-primary: #1e293b;
   --text-secondary: #475569;
   --text-muted: #64748b;
 
@@ -27,13 +27,15 @@
   --mom-tint-strong: #d1fae5;
   --mom-border: #6ee7b7;
 
-  --today-accent: #e11d48;
-  --today-soft: #fff1f2;
-  --today-badge-bg: #ffe4e6;
-  --today-border: #fda4af;
+  /* 優しい当日カラー（サーモン・ピーチ系） */
+  --today-soft: #fff6f5;
+  --today-border: #f4a29e;
+  --today-badge-bg: #fde8e6;
+  --today-text: #883939;
+  --today-accent: #c95b55;
 
   --focus-color: #2563eb;
-  --focus-ring: rgba(37, 99, 235, 0.16);
+  --focus-ring: rgba(37, 99, 235, 0.14);
 }
 
 *,
@@ -67,7 +69,7 @@ ul {
 }
 
 /* ==========================================================================
-1. 役割選択画面（index）
+   1. 役割選択画面（index_4.html）
    ========================================================================== */
 
 #select-page {
@@ -76,7 +78,7 @@ ul {
   background-color: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: 18px;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
   text-align: center;
 }
 
@@ -92,12 +94,23 @@ ul {
   text-align: left;
 }
 
+.name-field {
+  margin-bottom: 22px;
+  text-align: left;
+}
+
 label[for="name-input"] {
   display: block;
   margin-bottom: 8px;
   font-size: 0.92rem;
   font-weight: 700;
   color: var(--text-secondary);
+}
+
+.name-field-control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 #name-input {
@@ -115,6 +128,41 @@ label[for="name-input"] {
 #name-input:focus {
   outline: none;
   background-color: var(--surface);
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.name-history {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--surface-alt);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.name-history[hidden] {
+  display: none;
+}
+
+#saveName {
+  flex: 1;
+  min-width: 0;
+  min-height: 38px;
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text-primary);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+}
+
+#saveName:focus {
+  outline: none;
   border-color: var(--focus-color);
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
@@ -152,7 +200,7 @@ label[for="name-input"] {
 }
 
 /* ==========================================================================
-2. ページ共通ヘッダー・導線
+   2. ページ共通ヘッダー・導線
    ========================================================================== */
 
 body[data-page="kids"] main > a,
@@ -213,7 +261,7 @@ body[data-page="mom"] main > p:last-of-type {
 }
 
 /* ==========================================================================
-3. 食事予定の入力画面（kids）
+   3. 食事予定の入力画面（kids_4.html）
    ========================================================================== */
 
 body[data-page="kids"] #week-list {
@@ -234,9 +282,10 @@ body[data-page="kids"] fieldset[id^="day-"] {
   gap: 10px;
 }
 
-body[data-page="kids"] fieldset[id^="day-"].is-today {
+body[data-page="kids"] fieldset[id^="day-"].is-today,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] {
   background-color: var(--today-soft);
-  border-color: var(--today-accent);
+  border-color: var(--today-border);
 }
 
 body[data-page="kids"] fieldset[id^="day-"] legend {
@@ -249,16 +298,18 @@ body[data-page="kids"] fieldset[id^="day-"] legend {
   border-radius: 999px;
 }
 
-body[data-page="kids"] fieldset[id^="day-"].is-today legend {
+body[data-page="kids"] fieldset[id^="day-"].is-today legend,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] legend {
   background-color: var(--today-badge-bg);
   border-color: var(--today-border);
-  color: #9f1239;
+  color: var(--today-text);
 }
 
-body[data-page="kids"] fieldset[id^="day-"].is-today legend::after {
-  content: " 今日";
+body[data-page="kids"] fieldset[id^="day-"].is-today legend::after,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] legend::after {
+  content: " · 今日";
   color: var(--today-accent);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 body[data-page="kids"] [data-field="mealDate"] {
@@ -267,7 +318,8 @@ body[data-page="kids"] [data-field="mealDate"] {
   color: var(--kids-hover);
 }
 
-body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealDate"] {
+body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealDate"] {
   color: var(--today-accent);
 }
 
@@ -281,9 +333,10 @@ body[data-page="kids"] fieldset[id^="day-"] > p {
   border-radius: 8px;
 }
 
-body[data-page="kids"] fieldset[id^="day-"].is-today > p {
+body[data-page="kids"] fieldset[id^="day-"].is-today > p,
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] > p {
   background-color: var(--surface);
-  border-left-color: var(--today-accent);
+  border-left-color: var(--today-border);
 }
 
 body[data-page="kids"] [data-field="mealMenu"] {
@@ -325,6 +378,12 @@ body[data-page="kids"] [data-field="mealNote"] {
   border-radius: 10px;
 }
 
+body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealNote"],
+body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealNote"] {
+  background-color: var(--surface);
+  border-color: var(--today-border);
+}
+
 body[data-page="kids"] [data-field="mealNote"]:focus {
   outline: none;
   background-color: var(--surface);
@@ -361,11 +420,11 @@ body[data-page="kids"] [data-field="mealNote"]:focus {
   background-color: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18);
 }
 
 #registration-dialog::backdrop {
-  background-color: rgba(15, 23, 42, 0.45);
+  background-color: rgba(15, 23, 42, 0.4);
 }
 
 #registration-title {
@@ -397,7 +456,7 @@ body[data-page="kids"] [data-field="mealNote"]:focus {
 }
 
 /* ==========================================================================
-4. 家族の食事予定一覧（mom）
+   4. 家族の食事予定一覧（mom_4.html）
    ========================================================================== */
 
 body[data-page="mom"] table {
@@ -435,9 +494,10 @@ body[data-page="mom"] tbody tr[id^="day-"] {
   box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
 }
 
-body[data-page="mom"] tbody tr[id^="day-"].is-today {
+body[data-page="mom"] tbody tr[id^="day-"].is-today,
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] {
   background-color: var(--today-soft);
-  border-color: var(--today-accent);
+  border-color: var(--today-border);
 }
 
 body[data-page="mom"] tbody th[scope="row"] {
@@ -452,17 +512,21 @@ body[data-page="mom"] tbody th[scope="row"] {
   border-bottom: 1px solid var(--border-subtle);
 }
 
-body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"] {
+body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] th[scope="row"] {
+  color: var(--today-text);
   border-bottom-color: var(--today-border);
 }
 
-body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"]::after {
+body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"]::after,
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] th[scope="row"]::after {
   content: "今日";
-  padding: 2px 8px;
+  padding: 2px 9px;
   font-size: 0.74rem;
-  font-weight: 800;
-  color: #ffffff;
-  background-color: var(--today-accent);
+  font-weight: 700;
+  color: var(--today-text);
+  background-color: var(--today-badge-bg);
+  border: 1px solid var(--today-border);
   border-radius: 999px;
 }
 
@@ -476,8 +540,9 @@ body[data-page="mom"] [data-field="mealDate"] {
   border-radius: 999px;
 }
 
-body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealDate"] {
-  color: #9f1239;
+body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealDate"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealDate"] {
+  color: var(--today-text);
   background-color: var(--today-badge-bg);
   border-color: var(--today-border);
 }
@@ -499,11 +564,17 @@ body[data-page="mom"] [data-field="mealMenu"] {
   border-radius: 10px;
 }
 
+body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealMenu"],
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealMenu"] {
+  background-color: var(--surface);
+  border-color: var(--today-border);
+}
+
 body[data-page="mom"] [data-field="mealMenu"]:focus {
   outline: none;
   background-color: var(--surface);
   border-color: var(--mom-main);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.16);
 }
 
 body[data-page="mom"] td[data-field="noMealCount"] {
@@ -548,7 +619,8 @@ body[data-page="mom"] .member-list li {
   border-radius: 8px;
 }
 
-body[data-page="mom"] tbody tr[id^="day-"].is-today .member-list li {
+body[data-page="mom"] tbody tr[id^="day-"].is-today .member-list li,
+body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] .member-list li {
   background-color: var(--surface);
   border-color: var(--today-border);
 }
@@ -573,7 +645,7 @@ body[data-page="mom"] .member-list [data-field="mealNote"] {
 }
 
 /* ==========================================================================
-5. PC・タブレット向け幅調整
+   5. PC・タブレット向け幅調整
    ========================================================================== */
 
 @media (min-width: 768px) {
@@ -584,61 +656,4 @@ body[data-page="mom"] .member-list [data-field="mealNote"] {
   main {
     max-width: 560px;
   }
-}
-
-/* ==========================================================================
-6. 当日（.is-today / [data-today="true"]）の見やすさ強調追加
-   ========================================================================== */
-
-:root {
-  --today-highlight-bg: #fff1f2;
-  --today-highlight-border: #fb7185;
-  --today-highlight-text: #9f1239;
-  --today-pill-bg: #ffe4e6;
-}
-
-/* 当日のカード・行全体の枠線と背景をさらに明確に強調 */
-body[data-page="kids"] fieldset[id^="day-"].is-today,
-body[data-page="kids"] fieldset[id^="day-"][data-today="true"],
-body[data-page="mom"] tbody tr[id^="day-"].is-today,
-body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] {
-  background-color: var(--today-highlight-bg);
-  border-color: var(--today-highlight-border);
-  box-shadow: 0 6px 16px rgba(225, 29, 72, 0.12);
-}
-
-/* 当日の見出し・日付の色とバッジ強調 */
-body[data-page="kids"] fieldset[id^="day-"].is-today legend,
-body[data-page="kids"] fieldset[id^="day-"][data-today="true"] legend {
-  background-color: var(--today-pill-bg);
-  border-color: var(--today-highlight-border);
-  color: var(--today-highlight-text);
-}
-
-body[data-page="mom"] tbody tr[id^="day-"].is-today th[scope="row"],
-body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] th[scope="row"] {
-  color: var(--today-highlight-text);
-}
-
-body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealDate"],
-body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealDate"],
-body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealDate"],
-body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealDate"] {
-  color: var(--today-accent);
-  font-weight: 800;
-}
-
-/* 当日の入力欄・回答アイテムのコントラスト向上 */
-body[data-page="kids"] fieldset[id^="day-"].is-today [data-field="mealNote"],
-body[data-page="kids"] fieldset[id^="day-"][data-today="true"] [data-field="mealNote"],
-body[data-page="mom"] tbody tr[id^="day-"].is-today [data-field="mealMenu"],
-body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] [data-field="mealMenu"] {
-  background-color: var(--surface);
-  border-color: var(--today-highlight-border);
-}
-
-body[data-page="mom"] tbody tr[id^="day-"].is-today .member-list li,
-body[data-page="mom"] tbody tr[id^="day-"][data-today="true"] .member-list li {
-  background-color: var(--surface);
-  border-color: var(--today-border);
 }
