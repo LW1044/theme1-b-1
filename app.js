@@ -73,19 +73,29 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
-  // kids.htmlとmom.htmlの同じ曜日に予定日を表示する。
-  weeklyMealPlans.forEach((plan) => {
-    const dayElement = document.querySelector(`#day-${plan.dayId}`);
+  // 今日の日付を YYYY-MM-DD 形式に変換する。
+const todayMealDate =
+  `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
-    const mealDateElement = dayElement
-      ? dayElement.querySelector('[data-field="mealDate"]')
-      : null;
+// kids.htmlとmom.htmlの同じ曜日に予定日を表示する。
+weeklyMealPlans.forEach((plan) => {
+  const dayElement = document.querySelector(`#day-${plan.dayId}`);
 
-    if (mealDateElement) {
-      const [, month, day] = plan.mealDate.split("-");
-      mealDateElement.textContent = `${month}/${day}`;
-    }
-  });
+  const mealDateElement = dayElement
+    ? dayElement.querySelector('[data-field="mealDate"]')
+    : null;
+
+  if (mealDateElement) {
+    const [, month, day] = plan.mealDate.split("-");
+    mealDateElement.textContent = `${month}/${day}`;
+  }
+
+  // 当日の曜日にはCSS用のクラスと属性を付与する。
+  if (dayElement && plan.mealDate === todayMealDate) {
+    dayElement.classList.add("is-today");
+    dayElement.dataset.today = "true";
+  }
+});
 
   // 保存済みデータを取得する。
   const UserName = sessionStorage.getItem("UserName") || "";
